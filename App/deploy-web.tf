@@ -12,6 +12,26 @@ data "aws_ecs_cluster" "ecs_cluster" {
   cluster_name = "cluster1"
 }
 
+resource "aws_elb" "weblb" {
+  name               = "weblb"
+  availability_zones = ["ap-south-1a", "ap-south-1b"]
+
+  listener {
+    instance_port     = 80
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+  }
+
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    target              = "HTTP:80/index.html"
+    interval            = 30
+  }
+}
+
 resource "aws_ecs_task_definition" "web_cont" {
   family = "webcont"
   container_definitions = jsonencode([
