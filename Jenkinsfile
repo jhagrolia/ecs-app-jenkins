@@ -26,9 +26,11 @@ pipeline {
             when {
                 expression { params.SETUP_ECS_INFRA }
             }
-            dir("Infrastructure") {
-                sh "terraform init"
-                sh "terraform apply --auto-approve"
+            steps {
+                dir("Infrastructure") {
+                    sh "terraform init"
+                    sh "terraform apply --auto-approve"
+                }
             }
         }
 
