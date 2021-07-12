@@ -36,7 +36,7 @@ resource "aws_ecs_service" "web_svc" {
   desired_count   = 1
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.foo.arn
+    elb_name         = "weblb"
     container_name   = "httpd"
     container_port   = 80
   }
