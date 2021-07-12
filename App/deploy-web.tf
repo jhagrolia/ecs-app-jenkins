@@ -15,14 +15,14 @@ data "aws_ecs_cluster" "ecs_cluster" {
 resource "aws_ecs_task_definition" "web_task" {
   family = "webtask"
   requires_compatibilities = ["FARGATE"]
+  memory = 1024
+  cpu = 512
   container_definitions = jsonencode([
     {
       name      = "httpd"
       image     = "${var.image_name}"
       essential = true
       networkMode = "awsvpc"
-      memory = 1024
-      cpu = 512
       portMappings = [
         {
           containerPort = 80
