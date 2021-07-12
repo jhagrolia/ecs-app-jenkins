@@ -37,7 +37,7 @@ pipeline {
             steps {
                 dir("Infrastructure") {
                     sh "terraform init"
-                    //sh "terraform apply --auto-approve"
+                    sh "terraform apply --auto-approve"
                 }
             }
         }
@@ -46,9 +46,8 @@ pipeline {
         stage('Deploy App') {
             steps {
                 dir("App") {
-                    echo "hello"
-                    //sh "terraform init"
-                    //sh "terraform apply --auto-approve"
+                    sh "terraform init"
+                    sh "terraform apply --auto-approve -var 'image_name=jhagrolia/web:${BUILD_NUMBER}'"
                 }                
             }
         }
