@@ -53,6 +53,7 @@ resource "aws_ecs_task_definition" "web_cont" {
 
 resource "aws_ecs_service" "web_svc" {
   name            = "webservice"
+  launch_type = "FARGATE"
   cluster         = data.aws_ecs_cluster.ecs_cluster.arn
   task_definition = aws_ecs_task_definition.web_cont.arn
   desired_count   = 1
