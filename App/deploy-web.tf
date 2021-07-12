@@ -3,6 +3,11 @@ provider "aws" {
     region = "ap-south-1"
 }
 
+variable "image_name" {
+  type = string
+  description = "Image Name to Deploy"
+}
+
 data "aws_ecs_cluster" "ecs_cluster" {
   cluster_name = "cluster1"
 }
