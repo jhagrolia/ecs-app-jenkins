@@ -39,6 +39,9 @@ pipeline {
             when {
                 expression { params.SETUP_ECS_INFRA }
             }
+            steps {
+                echo "Hello!"
+            }
         }
     }
 }
