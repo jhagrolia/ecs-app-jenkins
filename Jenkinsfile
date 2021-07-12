@@ -28,7 +28,7 @@ pipeline {
             }
             dir("Infrastructure") {
                 sh "terraform init"
-                sh "terraform apply --auto-approve" 
+                sh "terraform apply --auto-approve"
             }
         }
 
