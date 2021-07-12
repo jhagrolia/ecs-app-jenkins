@@ -92,7 +92,7 @@ resource "aws_lb_listener" "web_lb_listener" {
   protocol = "HTTP"
 
   default_action {
-    target_group_arn = aws_alb_target_group.web_lb_tg.id
+    target_group_arn = aws_lb_target_group.web_lb_tg.id
     type = "forward"
   }
 }
@@ -105,7 +105,7 @@ resource "aws_ecs_service" "web_svc" {
   desired_count   = 3
 
   load_balancer {
-    target_group_arn = aws_alb_target_group.web_lb_tg.id
+    target_group_arn = aws_lb_target_group.web_lb_tg.id
     container_name   = "httpd"
     container_port   = 80
   }
