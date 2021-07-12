@@ -19,6 +19,8 @@ resource "aws_ecs_task_definition" "web_cont" {
       name      = "httpd"
       image     = "${var.image_name}"
       essential = true
+      cpu       = 2
+      memory    = 512
       portMappings = [
         {
           containerPort = 80
