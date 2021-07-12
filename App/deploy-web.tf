@@ -17,12 +17,12 @@ resource "aws_ecs_task_definition" "web_task" {
   requires_compatibilities = ["FARGATE"]
   memory = 1024
   cpu = 512
+  networkMode = "awsvpc"
   container_definitions = jsonencode([
     {
       name      = "httpd"
       image     = "${var.image_name}"
       essential = true
-      networkMode = "awsvpc"
       portMappings = [
         {
           containerPort = 80
