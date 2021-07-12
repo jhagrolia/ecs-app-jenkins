@@ -101,7 +101,7 @@ resource "aws_ecs_service" "web_svc" {
   name            = "webservice"
   launch_type = "FARGATE"
   cluster         = data.aws_ecs_cluster.ecs_cluster.arn
-  task_definition = aws_ecs_task_definition.web_cont.arn
+  task_definition = aws_ecs_task_definition.web_task.arn
   desired_count   = 3
 
   load_balancer {
