@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'main', url: 'git@github.com:jhagrolia/ecs-app-jenkins.git', credentialsId: 'GitECSRepoCreds'
-/*
+
                 step([$class: 'DockerBuilderPublisher', 
                     cleanImages: false,
                     cloud: 'docker',
@@ -26,9 +26,9 @@ pipeline {
                     pushCredentialsId: 'DockerhubCreds', 
                     pushOnSuccess: true, 
                     tagsString: 'jhagrolia/web:${BUILD_NUMBER}'])
-*/            }
+            }
         }
-/*
+
         // Setup ECS Infrastructure
         stage('Setup ECS') {
             when {
@@ -41,13 +41,13 @@ pipeline {
                 }
             }
         }
-*/
+
         // Deploy App on ECS
         stage('Deploy App') {
             steps {
                 dir("App") {
                     sh "terraform init"
-                    sh "terraform apply --auto-approve -var 'image_name=jhagrolia/web:19'"
+                    sh "terraform apply --auto-approve -var 'image_name=jhagrolia/web:${BUILD_NUMBER}'"
                 }                
             }
         }
