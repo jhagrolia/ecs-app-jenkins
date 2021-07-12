@@ -34,7 +34,7 @@ resource "aws_elb" "weblb" {
 
 resource "aws_ecs_task_definition" "web_cont" {
   family = "webcont"
-  requires_compatibilities = "FARGATE"
+  requires_compatibilities = ["FARGATE"]
   container_definitions = jsonencode([
     {
       name      = "httpd"
