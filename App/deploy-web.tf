@@ -64,6 +64,26 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
+resource "aws_security_group" "service_sg" {
+  name = "ecs-service-sg"
+  description = "Security Group for ECS Service"
+  vpc_id = data.aws_vpc.default.id
+
+  ingress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    security_groups = [aws_security_group.alb_sg.id]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_lb" "web_lb" {
   name = "ecs-web-lb"
   subnets = data.aws_subnet_ids.subnets.ids
@@ -105,6 +125,12 @@ resource "aws_ecs_service" "web_svc" {
   cluster         = data.aws_ecs_cluster.ecs_cluster.arn
   task_definition = aws_ecs_task_definition.web_task.arn
   desired_count   = 3
+
+  network_configuration {
+    security_groups = [aws_security_group.service_sg.id]
+    subnets = data.aws_subnet_ids.subnets.ids
+    assign_public_ip = true
+  }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.web_lb_tg.id
