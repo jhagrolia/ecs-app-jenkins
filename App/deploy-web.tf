@@ -21,6 +21,8 @@ resource "aws_ecs_task_definition" "web_task" {
       image     = "${var.image_name}"
       essential = true
       networkMode = "awsvpc"
+      memory = 1024
+      cpu = 512
       portMappings = [
         {
           containerPort = 80

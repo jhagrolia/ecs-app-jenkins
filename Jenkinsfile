@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'main', url: 'git@github.com:jhagrolia/ecs-app-jenkins.git', credentialsId: 'GitECSRepoCreds'
-
+/*
                 step([$class: 'DockerBuilderPublisher', 
                     cleanImages: false,
                     cloud: 'docker',
@@ -27,8 +27,8 @@ pipeline {
                     pushOnSuccess: true, 
                     tagsString: 'jhagrolia/web:${BUILD_NUMBER}'])
             }
-        }
-
+*/        }
+/*
         // Setup ECS Infrastructure
         stage('Setup ECS') {
             when {
@@ -41,7 +41,7 @@ pipeline {
                 }
             }
         }
-
+*/
         // Deploy App on ECS
         stage('Deploy App') {
             steps {
