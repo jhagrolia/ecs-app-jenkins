@@ -26,8 +26,8 @@ pipeline {
                     pushCredentialsId: 'DockerhubCreds', 
                     pushOnSuccess: true, 
                     tagsString: 'jhagrolia/web:${BUILD_NUMBER}'])
-            }
-*/        }
+*/            }
+        }
 /*
         // Setup ECS Infrastructure
         stage('Setup ECS') {
