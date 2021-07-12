@@ -17,7 +17,7 @@ pipeline {
         // Downloads Code from Github
         stage('GitPull'){
             steps{
-                git branch: 'stable-1.0', url: 'git@github.com:jhagrolia/ecs-app-jenkins.git', credentialsId: 'GitECSRepoCreds'
+                git branch: 'main', url: 'git@github.com:jhagrolia/ecs-app-jenkins.git', credentialsId: 'GitECSRepoCreds'
             }
         }
 
