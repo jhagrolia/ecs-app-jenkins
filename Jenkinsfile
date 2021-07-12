@@ -47,7 +47,7 @@ pipeline {
             steps {
                 dir("App") {
                     sh "terraform init"
-                    sh "terraform apply --auto-approve -var 'image_name=jhagrolia/web:${BUILD_NUMBER}'"
+                    sh "terraform apply --auto-approve -var 'image_name=jhagrolia/web:19'"
                 }                
             }
         }
