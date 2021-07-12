@@ -14,10 +14,18 @@ pipeline {
     }
 
     stages {
-        // Downloads Code from Github
-        stage('GitPull'){
-            steps{
+        //Downloads the code from GitHub then builds a Containerazied Application
+        stage('Build') {
+            steps {
                 git branch: 'main', url: 'git@github.com:jhagrolia/ecs-app-jenkins.git', credentialsId: 'GitECSRepoCreds'
+
+                step([$class: 'DockerBuilderPublisher', 
+                    cleanImages: false,
+                    cloud: 'docker',
+                    dockerFileDirectory: 'Docker', 
+                    pushCredentialsId: 'DockerhubCreds', 
+                    pushOnSuccess: true, 
+                    tagsString: 'jhagrolia/web:${BUILD_NUMBER}'])
             }
         }
 
@@ -29,18 +37,19 @@ pipeline {
             steps {
                 dir("Infrastructure") {
                     sh "terraform init"
-                    sh "terraform apply --auto-approve"
+                    //sh "terraform apply --auto-approve"
                 }
             }
         }
 
         // Deploy App on ECS
         stage('Deploy App') {
-            when {
-                expression { params.SETUP_ECS_INFRA }
-            }
             steps {
-                echo "Hello!"
+                dir("App") {
+                    echo "hello"
+                    //sh "terraform init"
+                    //sh "terraform apply --auto-approve"
+                }                
             }
         }
     }
