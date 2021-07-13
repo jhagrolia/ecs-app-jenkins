@@ -52,6 +52,7 @@ Here terraform is used for provisioning the ECS Infrastructure
 ## How to Use  
 - Create a Pipeline Job in Jenkins  
 - Update the Jenkinsfile and Terraform variables and code according to requirement
+- For adding new services/infrastructure add more resources to terraform code
 - Also add custom Dockerfile to build image as per requirements
 - Add credentials in Jenkins and update ID of them in Jenkinsfile (Container Repository creds are required to push image)
 - Configure it with Jenkinsfile Code or directly with this Github Repository  
