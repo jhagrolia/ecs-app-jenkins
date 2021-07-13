@@ -11,6 +11,7 @@ pipeline {
     //Declaring Parameters for Pipeline
     parameters {
         booleanParam(name: 'SETUP_ECS_INFRA', defaultValue: true, description: 'Need to setup ECS Infrastructure again?')
+        string(name: 'IMAGE_NAME', defaultValue: 'jhagrolia/web', description: 'Container Image name to build and push')
     }
 
     stages {
@@ -25,7 +26,7 @@ pipeline {
                     dockerFileDirectory: 'Docker', 
                     pushCredentialsId: 'DockerhubCreds', 
                     pushOnSuccess: true, 
-                    tagsString: 'jhagrolia/web:${BUILD_NUMBER}'])
+                    tagsString: '${ params.IMAGE_NAME }:${BUILD_NUMBER}'])
             }
         }
 
@@ -47,7 +48,7 @@ pipeline {
             steps {
                 dir("App") {
                     sh "terraform init"
-                    sh "terraform apply --auto-approve -var 'image_name=jhagrolia/web:${BUILD_NUMBER}'"
+                    sh "terraform apply --auto-approve -var '${ params.IMAGE_NAME }:${BUILD_NUMBER}'"
                 }                
             }
         }
